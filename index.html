@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>PoC Cookie</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .victim {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            padding: 20px 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.cookie = "poc=vuln; path=/; SameSite=Lax";
+        });
+    </script>
+</head>
+<body>
+    <div class="victim">victim</div>
+</body>
+</html>
