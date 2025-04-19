@@ -1,34 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>PoC Cookie</title>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        .victim {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            padding: 20px 40px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.cookie = "poc=vuln; path=/; SameSite=Lax";
-        });
-    </script>
-</head>
+<html>
+<head><meta charset="utf-8"><title>Victim</title></head>
 <body>
-    <div class="victim">victim</div>
+  <h1>Iframe vítima – madaraninja1337</h1>
+  <script>
+    // 1) Define artefatos “secretos”
+    document.cookie = "secretTOKEN=42; SameSite=None; Secure";
+    localStorage.setItem("flag", "COOKIE_LEAK_SUCCESS");
+
+    // 2) Ao carregar, tenta postar de volta ao parent
+    window.addEventListener("load", () => {
+      parent.postMessage({
+        cookie:  document.cookie,
+        storage: localStorage.getItem("flag")
+      }, "*");
+    });
+  </script>
 </body>
 </html>
